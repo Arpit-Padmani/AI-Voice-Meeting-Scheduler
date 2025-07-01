@@ -10,6 +10,8 @@ from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
+from text_to_speech import speak_text
+
 
 SCOPES = ["https://www.googleapis.com/auth/calendar"]
 
@@ -58,8 +60,23 @@ class GoogleCalendarAPI:
             }
         }
         event_result = self.service.events().insert(calendarId='primary', body=event).execute()
-        print(f"Event created: {event_result.get('htmlLink')}")
+        event_id = event_result.get('id')
+        fetched_event = self.getEventById(event_id)
+
+        if fetched_event:
+            event_title = fetched_event.get("summary", "Event created")
+            speak_text(f"Your meeting titled {event_title} has been created successfully.")
         # print("Event created: (event_result.get('htmlLink'))  # Placeholder",meeting_info['intent'])
+
+    def getEventById(self, event_id):
+        try:
+            event = self.service.events().get(calendarId='primary', eventId=event_id).execute()
+            print("Event fetched successfully:")
+            print(event)
+            return event
+        except HttpError as error:
+            print(f"An error occurred while fetching the event: {error}")
+            return None
 
     def getAllEvenets(self):
         now = datetime.datetime.now(tz=datetime.timezone.utc).isoformat()
