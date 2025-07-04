@@ -68,6 +68,15 @@ class GoogleCalendarAPI:
             speak_text(f"Your meeting titled {event_title} has been created successfully.")
         # print("Event created: (event_result.get('htmlLink'))  # Placeholder",meeting_info['intent'])
 
+    def deleteEventById(self, event_id):
+        try:
+            self.service.events().delete(calendarId='primary', eventId=event_id).execute()
+            print(f"Event with ID '{event_id}' deleted successfully.")
+            speak_text(f"The meeting with ID {event_id} has been deleted successfully.")
+        except HttpError as error:
+            print(f"An error occurred while deleting the event: {error}")
+            speak_text("An error occurred while trying to delete the event.")
+
     def getEventById(self, event_id):
         try:
             event = self.service.events().get(calendarId='primary', eventId=event_id).execute()
@@ -86,7 +95,7 @@ class GoogleCalendarAPI:
             .list(
                 calendarId="primary",
                 timeMin=now,
-                maxResults=10,
+                maxResults=2,
                 singleEvents=True,
                 orderBy="startTime",
             )
@@ -108,6 +117,7 @@ if __name__ == "__main__":
         calendar = GoogleCalendarAPI()
         # Example usage:
         # calendar.insertEventToGooleCelender(meeting_info)
-        calendar.getAllEvenets()
+        calendar.getEventById()
+
     except HttpError as error:
         print(f"An error occurred: {error}")
