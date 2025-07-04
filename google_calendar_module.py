@@ -38,8 +38,7 @@ class GoogleCalendarAPI:
 
         self.service = build("calendar", "v3", credentials=self.creds)
 
-    def insertEventToGooleCelender(self, meeting_info):
-
+    def insertEventToGooleCelender(self, meeting_info,reminder_required=False):
         timezone = 'Asia/Kolkata'
         start_dt = datetime.datetime.strptime(meeting_info['datetime'], "%Y-%m-%d %H:%M:%S")
         start_dt = pytz.timezone(timezone).localize(start_dt)
@@ -59,6 +58,18 @@ class GoogleCalendarAPI:
                 'timeZone': 'America/Los_Angeles',
             }
         }
+        if reminder_required:
+            event['reminders'] = {
+                'useDefault': False,
+                'overrides': [
+                    {'method': 'popup', 'minutes': 10},
+                ],
+            }
+        else:
+            event['reminders'] = {
+                'useDefault': False
+            }
+
         event_result = self.service.events().insert(calendarId='primary', body=event).execute()
         event_id = event_result.get('id')
         fetched_event = self.getEventById(event_id)
@@ -117,7 +128,7 @@ if __name__ == "__main__":
         calendar = GoogleCalendarAPI()
         # Example usage:
         # calendar.insertEventToGooleCelender(meeting_info)
-        calendar.getEventById()
+        calendar.getAllEvenets()
 
     except HttpError as error:
         print(f"An error occurred: {error}")
