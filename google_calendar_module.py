@@ -100,13 +100,13 @@ class GoogleCalendarAPI:
 
     def getAllEvenets(self):
         now = datetime.datetime.now(tz=datetime.timezone.utc).isoformat()
-        print("Getting the upcoming 10 events")
+        speak_text("Getting the upcoming 10 events")
         events_result = (
             self.service.events()
             .list(
                 calendarId="primary",
                 timeMin=now,
-                maxResults=2,
+                maxResults=10,
                 singleEvents=True,
                 orderBy="startTime",
             )
@@ -115,20 +115,29 @@ class GoogleCalendarAPI:
         events = events_result.get("items", [])
 
         if not events:
-            print("No upcoming events found.")
+            speak_text("No upcoming events found.")
             return
 
         for event in events:
             start = event["start"].get("dateTime", event["start"].get("date"))
-            print(start, event["summary"])
+            # print(start, event["summary"])
 
-
+        return events
 if __name__ == "__main__":
     try:
         calendar = GoogleCalendarAPI()
+        meeting_info = {
+            'title': "Team Discussion at 6PM",
+            'datetime': "2025-07-05 16:15:00",  # format: YYYY-MM-DD HH:MM:SS
+            'intent': "schedule"
+        }
+
+        # Insert event without reminder
+        # calendar.insertEventToGooleCelender(meeting_info, reminder_required=False)
+
         # Example usage:
         # calendar.insertEventToGooleCelender(meeting_info)
-        calendar.getAllEvenets()
-
+        events = calendar.getAllEvenets()
+        print(events[0])
     except HttpError as error:
         print(f"An error occurred: {error}")
