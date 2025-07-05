@@ -11,7 +11,7 @@ def task_reminder(event_title, event_time):
     notification.notify(
         title="Reminder: Upcoming Event",
         message=f"{event_title} at {event_time.strftime('%I:%M %p')}",
-        icon='icon.ico',
+        # ap='icon.ico',
         timeout=10
     )
 
