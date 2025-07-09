@@ -3,7 +3,6 @@ import os.path
 # import json
 import pytz
 import dateparser
-
 from IPython.core.formatters import JSONFormatter
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
