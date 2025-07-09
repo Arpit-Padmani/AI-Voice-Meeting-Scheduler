@@ -3,7 +3,7 @@ import time
 import datetime
 import pytz
 from plyer import notification
-from google_calendar_module import GoogleCalendarAPI
+from google_celender_integration import GoogleCalendarAPI
 from text_to_speech import speak_text
 
 def task_reminder(event_title, event_time):
