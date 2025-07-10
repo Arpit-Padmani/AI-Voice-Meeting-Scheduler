@@ -1,0 +1,12 @@
+spacy
+dateparser
+torch
+pyttsx3
+SpeechRecognition
+pytz
+google-auth
+google-auth-oauthlib
+google-api-python-client
+schedule
+plyer
+ipython  # for IPython.core.formatters.JSONFormatter
