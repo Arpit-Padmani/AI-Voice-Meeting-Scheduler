@@ -1,8 +1,19 @@
+
+
 # 🗣️ AI Voice Meeting Scheduler
 
 **AI Voice Meeting Scheduler** is a smart voice-activated assistant that helps users effortlessly schedule meetings using natural language commands. It integrates with Google Calendar to create events, set reminders, and provides timely desktop notifications — making meeting management seamless and hands-free.
 
- 
+ ---
+
+## 📽️ Demo Video
+
+Watch the demo of **AI Voice Meeting Scheduler** in action:
+
+[![Watch the video](https://github.com/user-attachments/assets/5788511e-79c4-4cd9-b15a-1feb3f6fcf31)](https://github.com/user-attachments/assets/5788511e-79c4-4cd9-b15a-1feb3f6fcf31)
+
+> Click the image above or [watch the demo](https://github.com/user-attachments/assets/5788511e-79c4-4cd9-b15a-1feb3f6fcf31)
+
 
 ## 🚀 Features
 
